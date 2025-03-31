@@ -20,6 +20,8 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Widgets\BlogStats;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
+use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
+
 
 
 class AdminPanelProvider extends PanelProvider
@@ -67,6 +69,7 @@ class AdminPanelProvider extends PanelProvider
                 })
                 ->appAdditionalField([]),
                 SpotlightPlugin::make(),
+                FilamentSpatieLaravelBackupPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,

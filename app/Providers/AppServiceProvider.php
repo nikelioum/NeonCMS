@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Gate;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('download-backup', function (User $user){
+          return in_array($user->email, explode(',', env('BACKUP_MANAGERS')));
+        });
+
+        Gate::define('delete-backup', function (User $user){
+            return in_array($user->email, explode(',', env('BACKUP_MANAGERS')));
+          });
     }
 }
