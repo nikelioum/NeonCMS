@@ -53,7 +53,8 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->plugins([
-                FilamentShieldPlugin::make(),
+                FilamentShieldPlugin::make(), //User roles
+                \Biostate\FilamentMenuBuilder\FilamentMenuBuilderPlugin::make(), // Menu Builder
             ])
             ->authMiddleware([
                 Authenticate::class,

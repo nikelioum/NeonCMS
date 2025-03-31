@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kalnoy\Nestedset\NodeTrait;
+use Biostate\FilamentMenuBuilder\Traits\Menuable;
 
 class Category extends Model
 {
-    use HasFactory, NodeTrait; // NodeTrait is from 'kalnoy/nestedset' for unlimited nesting
+    use HasFactory, NodeTrait, Menuable; // NodeTrait is from 'kalnoy/nestedset' for unlimited nesting || Menuable is for menu builder
 
     protected $fillable = [
         'name',
@@ -31,5 +32,15 @@ class Category extends Model
     public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function getMenuLinkAttribute(): string
+    {
+        return route('categories.show', $this);
+    }
+ 
+    public function getMenuNameAttribute(): string
+    {
+        return $this->name;
     }
 }
