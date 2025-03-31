@@ -22,6 +22,7 @@ use App\Filament\Widgets\BlogStats;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
+use Tapp\FilamentMailLog\FilamentMailLogPlugin;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -71,6 +72,7 @@ class AdminPanelProvider extends PanelProvider
                 SpotlightPlugin::make(),
                 FilamentSpatieLaravelBackupPlugin::make(),
                 FilamentSpatieLaravelHealthPlugin::make(),
+                FilamentMailLogPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
