@@ -1,15 +1,14 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Biostate\FilamentMenuBuilder\Traits\Menuable;
 
 class Page extends Model
 {
-    use HasFactory;
+    use HasFactory, Menuable;
 
-    // Define the fillable attributes for mass assignment
     protected $fillable = [
         'title',
         'slug',
@@ -19,4 +18,21 @@ class Page extends Model
         'meta_description',
         'meta_image',
     ];
+
+
+    public function getMenuLinkAttribute(): string
+    {
+        return route('pages.show', $this);
+    }
+
+    public function getMenuNameAttribute(): string
+    {
+        return $this->title;  // Fallback if 'title' is null
+    }
+
+    public static function getFilamentSearchLabel(): string
+    {
+        return 'title'; // Change this from 'name' to 'title'
+    }
+    
 }

@@ -3,6 +3,7 @@
 return [
     'models' => [
         'Category' => \App\Models\Category::class,
+        'Page' => \App\Models\Page::class,
     ],
     'api_enabled' => true,
     'cache' => [
