@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Biostate\FilamentMenuBuilder\Traits\Menuable;
 
 class Post extends Model
 {
@@ -38,5 +39,10 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'post_tag');
+    }
+
+    public static function getFilamentSearchLabel(): string
+    {
+        return 'title'; // Change this from 'name' to 'title'
     }
 }

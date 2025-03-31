@@ -4,6 +4,7 @@ return [
     'models' => [
         'Category' => \App\Models\Category::class,
         'Page' => \App\Models\Page::class,
+        'Post' => \App\Models\Post::class,
     ],
     'api_enabled' => true,
     'cache' => [
