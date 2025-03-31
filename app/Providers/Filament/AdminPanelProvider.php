@@ -19,6 +19,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -55,6 +56,13 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentShieldPlugin::make(), //User roles
                 \Biostate\FilamentMenuBuilder\FilamentMenuBuilderPlugin::make(), // Menu Builder
+                \CWSPS154\AppSettings\AppSettingsPlugin::make()->canAccess(function () {
+                    return true;
+                })
+                ->canAccessAppSectionTab(function () {
+                    return true;
+                })
+                ->appAdditionalField([]),
             ])
             ->authMiddleware([
                 Authenticate::class,
