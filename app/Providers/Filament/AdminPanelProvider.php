@@ -23,6 +23,7 @@ use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Tapp\FilamentMailLog\FilamentMailLogPlugin;
+use Z3d0X\FilamentFabricator\FilamentFabricatorPlugin;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -73,6 +74,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentSpatieLaravelBackupPlugin::make(),
                 FilamentSpatieLaravelHealthPlugin::make(),
                 FilamentMailLogPlugin::make(),
+                FilamentFabricatorPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
