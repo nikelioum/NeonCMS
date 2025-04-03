@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->boolean('is_homepage')->default(false)->after('id')->unique();
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->string('meta_image')->nullable();
+            $table->boolean('is_homepage')->default(false);
         });
     }
 
@@ -22,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->dropColumn('is_homepage');
+            $table->dropColumn(['meta_title', 'meta_description', 'meta_image', 'is_homepage']);
         });
     }
 };

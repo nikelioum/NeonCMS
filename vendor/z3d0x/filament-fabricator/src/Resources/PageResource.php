@@ -29,6 +29,7 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 use Z3d0X\FilamentFabricator\View\ResourceSchemaSlot;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\BooleanColumn;
 
 class PageResource extends Resource
@@ -70,20 +71,20 @@ class PageResource extends Resource
                                     ->visible(fn(?PageContract $record) => config('filament-fabricator.routing.enabled') && filled($record))
                                     ->content(fn(?PageContract $record) => FilamentFabricator::getPageUrlFromId($record?->id)),
 
-                                TextInput::make('title')
+                                    TextInput::make('title')
                                     ->label(__('filament-fabricator::page-resource.labels.title'))
+                                    ->live(onBlur: true) // Only updates slug when user finishes typing
                                     ->afterStateUpdated(function (Get $get, Set $set, ?string $state, ?PageContract $record) {
                                         if (!$get('is_slug_changed_manually') && filled($state) && blank($record)) {
-                                            $set('slug', Str::slug($state, language: config('app.locale', 'en')));
+                                            $set('slug', Str::slug($state, '-'));
                                         }
                                     })
-                                    ->debounce('500ms')
                                     ->required(),
-
+                                
                                 Hidden::make('is_slug_changed_manually')
                                     ->default(false)
                                     ->dehydrated(false),
-
+                                
                                 TextInput::make('slug')
                                     ->label(__('filament-fabricator::page-resource.labels.slug'))
                                     ->unique(ignoreRecord: true, modifyRuleUsing: fn(Unique $rule, Get $get) => $rule->where('parent_id', $get('parent_id')))
@@ -97,7 +98,10 @@ class PageResource extends Resource
                                             }
                                         };
                                     })
-                                    ->required(),
+                                    ->required()
+                                    ->suffix('.html') // Optional, if you want a suffix like ".html"
+                                    ->afterStateHydrated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state, '-'))) // Ensure proper formatting on edit
+                                    ->formatStateUsing(fn ($state) => Str::slug($state, '-')),// Auto-format before savings
 
                                 Checkbox::make('is_homepage')
                                     ->label('Set as Homepage')
@@ -107,6 +111,17 @@ class PageResource extends Resource
                                             \Z3d0X\FilamentFabricator\Models\Page::where('is_homepage', true)->update(['is_homepage' => false]);
                                         }
                                     }),
+
+                                    TextInput::make('meta_title')
+                                ->label('Meta Title')
+                                ->maxLength(255),
+
+                            TextInput::make('meta_description')
+                                ->label('Meta Description')
+                                ->maxLength(500),
+
+                                FileUpload::make('meta_image')
+                                ->image(),
 
                                 Select::make('layout')
                                     ->label(__('filament-fabricator::page-resource.labels.layout'))
@@ -166,12 +181,10 @@ class PageResource extends Resource
                     ->toggleable()
                     ->sortable(),
 
-                BooleanColumn::make('is_homepage')
+                    TextColumn::make('is_homepage')
                     ->label('Homepage')
-                    ->sortable()
-                    ->trueIcon('heroicon-o-home')
-                    ->falseIcon('heroicon-o-x-circle')
-                    ->toggleable(),
+                    ->formatStateUsing(fn ($state) => $state ? 'Homepage' : '-')
+                    ->sortable(),
 
                 TextColumn::make('parent.title')
                     ->label(__('filament-fabricator::page-resource.labels.parent'))
