@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Spatie\Permission\Models\Role;
+use Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction;
 
 class UserResource extends Resource
 {
@@ -82,6 +83,16 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                ActivityLogTimelineTableAction::make('Activities')
+                ->timelineIcons([
+                    'created' => 'heroicon-m-check-badge',
+                    'updated' => 'heroicon-m-pencil-square',
+                ])
+                ->timelineIconColors([
+                    'created' => 'info',
+                    'updated' => 'warning',
+                ])
+                ->limit(10),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

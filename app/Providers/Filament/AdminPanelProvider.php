@@ -25,6 +25,7 @@ use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Tapp\FilamentMailLog\FilamentMailLogPlugin;
 use Z3d0X\FilamentFabricator\FilamentFabricatorPlugin;
 use App\Filament\Widgets\NeonCms;
+use Rmsramos\Activitylog\ActivitylogPlugin;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -77,6 +78,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentSpatieLaravelHealthPlugin::make(),
                 FilamentMailLogPlugin::make(),
                 FilamentFabricatorPlugin::make(),
+                ActivitylogPlugin::make()->navigationGroup('Activity Log'),
             ])
             ->authMiddleware([
                 Authenticate::class,

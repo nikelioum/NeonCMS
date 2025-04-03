@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kalnoy\Nestedset\NodeTrait;
 use Biostate\FilamentMenuBuilder\Traits\Menuable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Category extends Model
 {
-    use HasFactory, NodeTrait, Menuable; // NodeTrait is from 'kalnoy/nestedset' for unlimited nesting || Menuable is for menu builder
+    use HasFactory, NodeTrait, LogsActivity, Menuable;
 
     protected $fillable = [
         'name',
@@ -23,6 +25,13 @@ class Category extends Model
         'meta_image',
         'parent_id',
     ];
+
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['name', 'description']);
+    }
 
     public function parent(): BelongsTo
     {
