@@ -35,6 +35,7 @@ Route::get('lolo', function(){
 
     $page = Page::find(1)->blocks;
 
+
     return view('lolo', compact('page'));
 });
 

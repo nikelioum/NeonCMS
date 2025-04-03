@@ -11,6 +11,8 @@ use Filament\Support\Enums\Alignment;
 
 class BlogStats extends BaseWidget
 {
+
+    protected static ?int $sort = 2;
     protected function getHeading(): string
     {
         return 'Blog Overview';

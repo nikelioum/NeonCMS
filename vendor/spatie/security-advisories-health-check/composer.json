@@ -1,0 +1,55 @@
+{
+    "name": "spatie/security-advisories-health-check",
+    "description": "A Laravel Health check to security advisories for PHP packages",
+    "keywords": [
+        "spatie",
+        "laravel",
+        "security-advisories-health-check"
+    ],
+    "homepage": "https://github.com/spatie/security-advisories-health-check",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Freek Van der Herten",
+            "email": "freek@spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "spatie/packagist-api": "^2.1"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^6.1|^7.0|^8.0",
+        "pestphp/pest": "^1.21|^2.3",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5.10|^10.5",
+        "spatie/laravel-health": "^1.22.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\SecurityAdvisoriesHealthCheck\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\SecurityAdvisoriesHealthCheck\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -17,6 +17,7 @@ class Page extends Model
         'meta_title',
         'meta_description',
         'meta_image',
+        'is_homepage',
     ];
 
 

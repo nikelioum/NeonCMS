@@ -24,6 +24,7 @@ use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Tapp\FilamentMailLog\FilamentMailLogPlugin;
 use Z3d0X\FilamentFabricator\FilamentFabricatorPlugin;
+use App\Filament\Widgets\NeonCms;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -46,7 +47,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                NeonCms::class,
                 BlogStats::class,
             ])
             ->middleware([
