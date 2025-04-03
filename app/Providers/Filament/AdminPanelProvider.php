@@ -49,6 +49,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 NeonCms::class,
                 BlogStats::class,
+                \App\Filament\Widgets\ClearCacheWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
